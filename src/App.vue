@@ -1,7 +1,7 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/">MATRIX TO COORDINATES</router-link> |
+    <router-link to="/ctm">COORDINATES TO MATRIX</router-link>
   </div>
   <router-view/>
 </template>
@@ -16,7 +16,10 @@
 }
 
 #nav {
-  padding: 30px;
+  box-sizing: border-box;
+  background-color: #409eff;
+  padding-top: 20px;
+  height: calc(8vh);
 
   a {
     font-weight: bold;

@@ -3,18 +3,18 @@
     <!-- <el-header>Welcome to CHO's project</el-header> -->
     <el-container>
       <el-aside>
-        <div class="title">WELCOM TO CHO'S CTM WORKSPACE</div>
+        <div class="title">WELCOM TO CHO'S MTC WORKSPACE</div>
         <div id="upload">
           <el-upload
             class="upload-demo"
             drag
-            action="http://localhost:8086/cho/cc"
+            action="http://localhost:8086/cho/bb"
             multiple
             :on-success="handleResp"
           >
             <el-icon class="el-icon--upload"><upload-filled /></el-icon>
             <div class="el-upload__text">
-              Drop coordinates file here or <em>click to upload</em>
+              Drop matrix file here or <em>click to upload</em>
             </div>
             <template #tip>
               <div class="el-upload__tip">
@@ -23,22 +23,11 @@
             </template>
           </el-upload>
         </div>
-        <el-button
-          id="downloadbutton"
-          @click="downloadfile"
-          type="primary"
-          plain
-          v-if="isShow"
-          >Click to download matrix Files</el-button
-        >
+        <el-button id="downloadbutton" @click="downloadfile" type="primary" plain v-if="isShow">Click to download coordinates Files</el-button>
       </el-aside>
       <el-container>
         <el-main id="mianpage">
-          <table class="matrix">
-            <tr class="tableRow" v-for="item in matrix" :key="item.key">
-              <td v-for="value in item" :key="value">{{ value }}</td>
-            </tr>
-          </table>
+          <!-- <div id="graph" style="width: 600px; height: 600px"></div> -->
         </el-main>
       </el-container>
     </el-container>
@@ -46,6 +35,7 @@
 </template>
 
 <script>
+import * as echarts from "echarts";
 
 export default {
   name: "MTN",
@@ -55,49 +45,61 @@ export default {
       matrix: {},
       coordinates: {},
       filename: {},
-      isShow: false,
-      mainHeight: {},
-      mainWidth: {}
+      isShow: false
     };
   },
   methods: {
     handleResp(response) {
       console.log(response);
       this.$message({
-        message: "Upload coordinates file successfully!!!",
+        message: "Upload matrix file successfully!!!",
         type: "success",
       });
       this.matrix = response.matrix;
       this.coordinates = response.coordinates;
       this.filename = response.filename;
+
+      var chartDom = document.getElementById("mianpage");
+      var myChart = echarts.init(chartDom);
+      myChart.setOption({
+        xAxis: {},
+        yAxis: {},
+        series: [
+          {
+            symbolSize: 20,
+            data: this.coordinates,
+            type: "scatter",
+          },
+        ],
+      });
       this.showdownloadbutton()
     },
     downloadfile() {
       window.location.href =
         "http://localhost:8086/cho/downloadfile/" + this.filename;
     },
-    getWidthAndHeight() {
-      var ele = document.getElementById("mianpage");
-      this.mainHeight = ele.getBoundingClientRect().height;
-      this.mainWidth = ele.getBoundingClientRect().width;
-      console.log(this.mainHeight);
-      console.log(this.mainWidth);
-      // document.getElementById("graph").style.height = tmph;
-      // document.getElementById("graph").style.width = tmpw;
-    },
+    // getWidthAndHeight() {
+    //   var ele = document.getElementById("mianpage");
+    //   var tmph = ele.getBoundingClientRect().height;
+    //   var tmpw = ele.getBoundingClientRect().width;
+    //   console.log(tmph);
+    //   console.log(tmpw);
+    //   // document.getElementById("graph").style.height = tmph;
+    //   // document.getElementById("graph").style.width = tmpw;
+    // },
     showdownloadbutton() {
-      this.isShow = true;
-    },
+      this.isShow = true
+    }
   },
   mounted: function () {
-    this.getWidthAndHeight();
+    // this.getWidthAndHeight()
   },
 };
 </script>
 
 <style scoped>
 .el-header {
-  background-color: #7aadf0;
+  background-color: #409eff;
   color: #333;
   text-align: center;
   line-height: 60px;
@@ -106,6 +108,7 @@ export default {
   background-color: #e9eef3;
   color: #333;
   text-align: center;
+  line-height: 160px;
 }
 .whole_page {
   height: calc(90vh);
@@ -113,8 +116,5 @@ export default {
 .title {
   padding: 20px 0px;
   background-color: aqua;
-}
-table {
-  width: 100%;
 }
 </style>
