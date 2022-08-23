@@ -23,7 +23,20 @@
             </template>
           </el-upload>
         </div>
-        <el-button id="downloadbutton" @click="downloadfile" type="primary" plain v-if="isShow">Click to download coordinates Files</el-button>
+        <el-button
+          id="downloadbutton"
+          @click="downloadfile"
+          type="primary"
+          plain
+          v-if="isShow"
+          >Click to download coordinates Files</el-button
+        >
+        Rotation angle<el-input-number
+          v-model="angle"
+          :min="0"
+          :max="360"
+          @change="handleRotate"
+        />
       </el-aside>
       <el-container>
         <el-main id="mianpage">
@@ -45,7 +58,8 @@ export default {
       matrix: {},
       coordinates: {},
       filename: {},
-      isShow: false
+      isShow: false,
+      angle: 0,
     };
   },
   methods: {
@@ -72,11 +86,41 @@ export default {
           },
         ],
       });
-      this.showdownloadbutton()
+      this.showdownloadbutton();
     },
     downloadfile() {
       window.location.href =
         "http://localhost:8086/cho/downloadfile/" + this.filename;
+    },
+    handleRotate() {
+      var params = {
+        coordinates: this.coordinates,
+        rotateDegree: this.angle,
+      };
+      console.log(this.angle);
+      console.log(this.coordinates);
+      this.$axios
+        .post("/dd", params)
+        .then((response) => {
+          console.log(response);
+          var coordinatesRotate = response.data.coordinates;
+          var chartDom = document.getElementById("mianpage");
+          var myChart = echarts.init(chartDom);
+          myChart.setOption({
+            xAxis: {},
+            yAxis: {},
+            series: [
+              {
+                symbolSize: 20,
+                data: coordinatesRotate,
+                type: "scatter",
+              },
+            ],
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
     // getWidthAndHeight() {
     //   var ele = document.getElementById("mianpage");
@@ -88,8 +132,8 @@ export default {
     //   // document.getElementById("graph").style.width = tmpw;
     // },
     showdownloadbutton() {
-      this.isShow = true
-    }
+      this.isShow = true;
+    },
   },
   mounted: function () {
     // this.getWidthAndHeight()
