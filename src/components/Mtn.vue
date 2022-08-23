@@ -31,12 +31,14 @@
           v-if="isShow"
           >Click to download coordinates Files</el-button
         >
-        Rotation angle<el-input-number
-          v-model="angle"
-          :min="0"
-          :max="360"
-          @change="handleRotate"
-        />
+        <div id="rotation" v-if="isShow">
+          Rotation angle<el-input-number
+            v-model="angle"
+            :min="0"
+            :max="360"
+            @change="handleRotate"
+          />
+        </div>
       </el-aside>
       <el-container>
         <el-main id="mianpage">
@@ -160,5 +162,11 @@ export default {
 .title {
   padding: 20px 0px;
   background-color: aqua;
+}
+#upload {
+  padding-bottom: 20px;
+}
+#rotation {
+  padding-top: 20px;
 }
 </style>
