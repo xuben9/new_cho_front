@@ -3,7 +3,8 @@
     <!-- <el-header>Welcome to CHO's project</el-header> -->
     <el-container>
       <el-aside>
-        <div class="title">WELCOM TO CHO'S MTC WORKSPACE</div>
+        <img alt="hello" src="../assets/icon_left_corner.png" />
+        <div class="title">Welcome To Cho's MTC Workspace</div>
         <div id="upload">
           <el-upload
             class="upload-demo"
@@ -32,7 +33,9 @@
           >Click to download coordinates Files</el-button
         >
         <div id="rotation" v-if="isShow">
-          Rotation angle<el-input-number
+          <span>Anticlockwise rotation</span>
+          <el-input-number
+            id="input_angle"
             v-model="angle"
             :min="0"
             :max="360"
@@ -84,7 +87,7 @@ export default {
           {
             symbolSize: 20,
             data: this.coordinates,
-            type: "scatter",
+            type: "line",
           },
         ],
       });
@@ -115,7 +118,7 @@ export default {
               {
                 symbolSize: 20,
                 data: coordinatesRotate,
-                type: "scatter",
+                type: "line",
               },
             ],
           });
@@ -150,6 +153,9 @@ export default {
   text-align: center;
   line-height: 60px;
 }
+.el-aside {
+  width: var(--el-aside-width);
+}
 .el-main {
   background-color: #e9eef3;
   color: #333;
@@ -161,12 +167,23 @@ export default {
 }
 .title {
   padding: 20px 0px;
-  background-color: aqua;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #2c3e50;
 }
 #upload {
   padding-bottom: 20px;
 }
 #rotation {
+  display: flex;
   padding-top: 20px;
+  justify-content: center;
+  align-items: center;
+}
+#input_angle {
+  width: 6.8rem;
+}
+img {
+  height: calc(10vh);
 }
 </style>

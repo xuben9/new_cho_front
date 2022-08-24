@@ -3,7 +3,8 @@
     <!-- <el-header>Welcome to CHO's project</el-header> -->
     <el-container>
       <el-aside>
-        <div class="title">WELCOM TO CHO'S CTM WORKSPACE</div>
+        <img alt="hello" src="../assets/icon_top_corner.png" />
+        <div class="title">Welcome To Cho's CTM Workspace</div>
         <div id="upload">
           <el-upload
             class="upload-demo"
@@ -46,7 +47,6 @@
 </template>
 
 <script>
-
 export default {
   name: "MTN",
   components: {},
@@ -57,7 +57,7 @@ export default {
       filename: {},
       isShow: false,
       mainHeight: {},
-      mainWidth: {}
+      mainWidth: {},
     };
   },
   methods: {
@@ -70,7 +70,7 @@ export default {
       this.matrix = response.matrix;
       this.coordinates = response.coordinates;
       this.filename = response.filename;
-      this.showdownloadbutton()
+      this.showdownloadbutton();
     },
     downloadfile() {
       window.location.href =
@@ -102,6 +102,9 @@ export default {
   text-align: center;
   line-height: 60px;
 }
+.el-aside {
+  width: var(--el-aside-width);
+}
 .el-main {
   background-color: #e9eef3;
   color: #333;
@@ -112,9 +115,14 @@ export default {
 }
 .title {
   padding: 20px 0px;
-  background-color: aqua;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #2c3e50;
 }
 table {
   width: 100%;
+}
+img {
+  height: calc(10vh);
 }
 </style>
