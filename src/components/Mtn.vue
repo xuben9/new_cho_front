@@ -4,7 +4,7 @@
     <el-container>
       <el-aside>
         <img alt="hello" src="../assets/icon_left_corner.png" />
-        <div class="title">Welcome To Cho's MTC Workspace</div>
+        <div class="title">Matrix To Coordinates</div>
         <div id="upload">
           <el-upload
             class="upload-demo"
@@ -19,21 +19,32 @@
             </div>
             <template #tip>
               <div class="el-upload__tip">
-                Only .xls/.xlsx/.csv files are supported, and no more than 500kb
+                Only .xls/.xlsx/.csv/.txt files are supported, and no more than
+                500kb
               </div>
             </template>
           </el-upload>
         </div>
-        <el-button
-          id="downloadbutton"
-          @click="downloadfile"
-          type="primary"
-          plain
-          v-if="isShow"
-          >Click to download coordinates Files</el-button
-        >
+        <div class="buttonGroup">
+          <el-button
+            id="downloadbutton"
+            @click="downloadfile"
+            type="primary"
+            plain
+            v-if="isShow"
+            >Click to download coordinates Files</el-button
+          >
+          <el-button
+            id="downloadRotate"
+            @click="downloadRotate"
+            type="primary"
+            plain
+            v-if="isRotate"
+            >Click to download rotated coordinates Files</el-button
+          >
+        </div>
         <div id="rotation" v-if="isShow">
-          <span>Anticlockwise rotation</span>
+          <span>Counterclockwise rotation</span>
           <el-input-number
             id="input_angle"
             v-model="angle"
@@ -64,7 +75,9 @@ export default {
       coordinates: {},
       filename: {},
       isShow: false,
+      isRotate: false,
       angle: 0,
+      coordinatesRotate: {},
     };
   },
   methods: {
@@ -102,13 +115,14 @@ export default {
         coordinates: this.coordinates,
         rotateDegree: this.angle,
       };
+      this.isRotate = true;
       console.log(this.angle);
       console.log(this.coordinates);
       this.$axios
         .post("/dd", params)
         .then((response) => {
           console.log(response);
-          var coordinatesRotate = response.data.coordinates;
+          this.coordinatesRotate = response.data.coordinates;
           var chartDom = document.getElementById("mianpage");
           var myChart = echarts.init(chartDom);
           myChart.setOption({
@@ -117,11 +131,27 @@ export default {
             series: [
               {
                 symbolSize: 20,
-                data: coordinatesRotate,
+                data: this.coordinatesRotate,
                 type: "line",
               },
             ],
           });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    downloadRotate() {
+      var params = {
+        coordinates: this.coordinatesRotate,
+      };
+      this.$axios
+        .post("/ff", params)
+        .then((response) => {
+          console.log(response);
+          window.location.href =
+            "http://localhost:8086/cho/downloadfile/" +
+            response.data.filenameRotate;
         })
         .catch(function (error) {
           console.log(error);
@@ -185,5 +215,14 @@ export default {
 }
 img {
   height: calc(10vh);
+}
+.buttonGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.el-button {
+  margin-top: 1vh;
 }
 </style>

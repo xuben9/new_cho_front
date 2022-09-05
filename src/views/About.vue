@@ -3,9 +3,10 @@
     <!-- <el-header>Welcome to CHO's project</el-header> -->
     <el-container>
       <el-aside>
-        <img alt="hello" src="../assets/icon_top_corner.png" />
-        <div class="title">Welcome To Cho's CTM Workspace</div>
-        <div id="upload">
+        <img alt="hello" src="../assets/icon_left_corner.png" />
+        <div class="title" v-if="plainCoor">Plain Coordinates To Matrix</div>
+        <div class="title" v-if="mapCoor">Map Coordinates To Matrix</div>
+        <div id="upload" v-if="plainCoor">
           <el-upload
             class="upload-demo"
             drag
@@ -15,27 +16,66 @@
           >
             <el-icon class="el-icon--upload"><upload-filled /></el-icon>
             <div class="el-upload__text">
-              Drop coordinates file here or <em>click to upload</em>
+              Drop plain coordinates file here or <em>click to upload</em>
             </div>
             <template #tip>
               <div class="el-upload__tip">
-                Only .xls/.xlsx/.csv files are supported, and no more than 500kb
+                Only .xls/.xlsx/.csv/.txt files are supported, and no more than
+                500kb
               </div>
             </template>
           </el-upload>
         </div>
-        <el-button
-          id="downloadbutton"
-          @click="downloadfile"
-          type="primary"
-          plain
-          v-if="isShow"
-          >Click to download matrix Files</el-button
-        >
+        <div id="upload" v-if="mapCoor">
+          <el-upload
+            class="upload-demo"
+            drag
+            action="http://localhost:8086/cho/ee"
+            multiple
+            :on-success="handleResp"
+          >
+            <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+            <div class="el-upload__text">
+              Drop map coordinates file here or <em>click to upload</em>
+            </div>
+            <template #tip>
+              <div class="el-upload__tip">
+                Only .xls/.xlsx/.csv/.txt files are supported, and no more than
+                500kb
+              </div>
+            </template>
+          </el-upload>
+        </div>
+        <div class="buttonGroup">
+          <el-button
+            id="switchCoorKind"
+            @click="switchCoorKind"
+            type="primary"
+            v-if="mapCoor"
+            plain
+            >Switch To Plain Coordinates Transform</el-button
+          >
+          <el-button
+            id="switchCoorKind"
+            @click="switchCoorKind"
+            type="primary"
+            v-if="plainCoor"
+            plain
+            >Switch To Map Coordinates Transform</el-button
+          >
+          <el-button
+            id="downloadbutton"
+            @click="downloadfile"
+            type="primary"
+            plain
+            v-if="isShow"
+            >Click to download matrix Files</el-button
+          >
+        </div>
       </el-aside>
       <el-container>
         <el-main id="mianpage">
-          <table class="matrix">
+          <table class="matrix" v-if="isShow">
             <tr class="tableRow" v-for="item in matrix" :key="item.key">
               <td v-for="value in item" :key="value">{{ value }}</td>
             </tr>
@@ -58,6 +98,8 @@ export default {
       isShow: false,
       mainHeight: {},
       mainWidth: {},
+      plainCoor: true,
+      mapCoor: false,
     };
   },
   methods: {
@@ -87,6 +129,11 @@ export default {
     },
     showdownloadbutton() {
       this.isShow = true;
+    },
+    switchCoorKind() {
+      this.plainCoor = !this.plainCoor;
+      this.mapCoor = !this.mapCoor;
+      this.isShow = false;
     },
   },
   mounted: function () {
@@ -124,5 +171,14 @@ table {
 }
 img {
   height: calc(10vh);
+}
+.buttonGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.el-button {
+  margin-top: 1vh;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
+  <img alt="hello" src="../assets/icon_left_corner.png" />
   <div class="index">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <router-link to="/mtc">
       <!-- <img alt="matrix to coordinates" src="../assets/index_matrix.png" /> -->
@@ -14,7 +14,7 @@
     <div style="width:5% "></div>
     <router-link to="/tsp">
       <!-- <img alt="coordinates to matrix" src="../assets/index-matrix-a.png" /> -->
-      <div class="mtc">TSP Solutions Refference</div>
+      <div class="mtc">TSP Solutions Refferences</div>
     </router-link>
   </div>
 </template>
@@ -35,14 +35,14 @@ export default {
   width: 50px;
 }
 img {
-  height: 150px;
+  height: 30vh;
 }
 .index {
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
-  padding: 12rem 0;
+  padding: 5vh 0;
 }
 .index a {
   font-weight: bold;
