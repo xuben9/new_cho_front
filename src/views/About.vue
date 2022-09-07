@@ -53,7 +53,7 @@
             type="primary"
             v-if="mapCoor"
             plain
-            >Switch to Plain Coordinates Transform</el-button
+            >Switch to Plain Coordinates Transformation</el-button
           >
           <el-button
             id="switchCoorKind"
@@ -61,7 +61,7 @@
             type="primary"
             v-if="plainCoor"
             plain
-            >Switch to Map Coordinates Transform</el-button
+            >Switch to Map Coordinates Transformation</el-button
           >
           <el-button
             id="downloadbutton"
