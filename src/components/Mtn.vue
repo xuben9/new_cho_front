@@ -100,7 +100,7 @@ export default {
           {
             symbolSize: 20,
             data: this.coordinates,
-            type: "line",
+            type: "scatter",
           },
         ],
       });
@@ -132,7 +132,7 @@ export default {
               {
                 symbolSize: 20,
                 data: this.coordinatesRotate,
-                type: "line",
+                type: "scatter",
               },
             ],
           });

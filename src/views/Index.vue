@@ -4,17 +4,17 @@
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <router-link to="/mtc">
       <!-- <img alt="matrix to coordinates" src="../assets/index_matrix.png" /> -->
-      <div class="mtc">Matrix To Coordinates</div>
+      <div class="mtc">Matrix to Coordinates</div>
     </router-link>
     <div style="width:5% "></div>
     <router-link to="/ctm">
       <!-- <img alt="coordinates to matrix" src="../assets/index-matrix-a.png" /> -->
-      <div class="mtc">Coordinates To Matrix</div>
+      <div class="mtc">Coordinates to Matrix</div>
     </router-link>
     <div style="width:5% "></div>
     <router-link to="/tsp">
       <!-- <img alt="coordinates to matrix" src="../assets/index-matrix-a.png" /> -->
-      <div class="mtc">TSP Solutions Refferences</div>
+      <div class="mtc">TSP Solutions References</div>
     </router-link>
   </div>
 </template>

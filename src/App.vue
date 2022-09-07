@@ -6,7 +6,7 @@
     <div class="flex-grow"></div>
     <div class="nav-right">
       <img id="icon_help" alt="help" src="@/assets/icon_help.png" />
-      <el-button type="text" @click="dialogVisible = true">Guide</el-button>
+      <el-button type="text" @click="dialogVisible = true">Help</el-button>
     </div>
   </div>
   <router-view />

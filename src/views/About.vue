@@ -4,8 +4,8 @@
     <el-container>
       <el-aside>
         <img alt="hello" src="../assets/icon_left_corner.png" />
-        <div class="title" v-if="plainCoor">Plain Coordinates To Matrix</div>
-        <div class="title" v-if="mapCoor">Map Coordinates To Matrix</div>
+        <div class="title" v-if="plainCoor">Plain Coordinates to Matrix</div>
+        <div class="title" v-if="mapCoor">Map Coordinates to Matrix</div>
         <div id="upload" v-if="plainCoor">
           <el-upload
             class="upload-demo"
@@ -53,7 +53,7 @@
             type="primary"
             v-if="mapCoor"
             plain
-            >Switch To Plain Coordinates Transform</el-button
+            >Switch to Plain Coordinates Transform</el-button
           >
           <el-button
             id="switchCoorKind"
@@ -61,7 +61,7 @@
             type="primary"
             v-if="plainCoor"
             plain
-            >Switch To Map Coordinates Transform</el-button
+            >Switch to Map Coordinates Transform</el-button
           >
           <el-button
             id="downloadbutton"
@@ -69,7 +69,7 @@
             type="primary"
             plain
             v-if="isShow"
-            >Click to download matrix Files</el-button
+            >Click to Download Matrix Files</el-button
           >
         </div>
       </el-aside>
