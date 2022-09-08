@@ -11,8 +11,7 @@
   </div>
   <router-view />
 
-  <el-dialog title="提示" v-model="dialogVisible" width="50%">
-    <span>这是一段信息</span>
+  <el-dialog title="Guide" v-model="dialogVisible" width="50%">
     <Guide />
     <span class="dialog-footer">
       <el-button @click="dialogVisible = false">取 消</el-button>
